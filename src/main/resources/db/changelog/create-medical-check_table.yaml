@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-create-medical-check-table
+      author: lilheep
+      changes:
+        - createTable:
+            tableName: medical_check
+            schemaName: medical
