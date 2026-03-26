@@ -1,9 +1,7 @@
 package com.prmo.mock.domain.impl;
 
-import com.prmo.mock.controller.dto.doctor.DoctorEndRequestDto;
-import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
-import com.prmo.mock.controller.dto.driver.DriverEndRequestDto;
-import com.prmo.mock.controller.dto.driver.DriverStartRequestDto;
+import com.prmo.mock.controller.dto.doctor.DoctorRequestDto;
+import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckService;
 import com.prmo.mock.domain.exception.resource.MedicalCheckNotFoundException;
@@ -40,7 +38,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public DriverStartResponseDto startExaminationDriver(DriverStartRequestDto dto) {
+    public DriverStartResponseDto startExaminationDriver(DriverRequestDto dto) {
         MedicalCheck medicalCheck = new MedicalCheck();
         medicalCheck.setDriverId(dto.getDriverId());
         medicalCheck.setDriverStartTime(LocalDateTime.now());
@@ -54,7 +52,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public void endExaminationDriver(Long checkId, DriverEndRequestDto dto) {
+    public void endExaminationDriver(Long checkId, DriverRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
         if (!dto.getDriverId().equals(medicalCheck.getDriverId())) {
@@ -75,7 +73,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public void startExaminationDoctor(Long checkId, DoctorStartRequestDto dto) {
+    public void startExaminationDoctor(Long checkId, DoctorRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
         if (medicalCheck.getDoctorId() != null) {
@@ -95,7 +93,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public void endExaminationDoctor(Long checkId, DoctorEndRequestDto dto) {
+    public void endExaminationDoctor(Long checkId, DoctorRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
         if (!medicalCheck.getDoctorId().equals(dto.getDoctorId())) {
