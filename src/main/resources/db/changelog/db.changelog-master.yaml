@@ -1,7 +1,6 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1-create-schema
-      author: lilheep
-      changes:
-        - sql:
-            sql: 'CREATE SCHEMA IF NOT EXISTS medical;'
+  - include:
+      file: db/changelog/create-schema.yaml
+
+  - include:
+      file: db/changelog/create-medical-check_table.yaml
