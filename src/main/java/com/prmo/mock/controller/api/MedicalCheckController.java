@@ -1,6 +1,6 @@
 package com.prmo.mock.controller.api;
 
-import com.prmo.mock.controller.dto.doctor.DoctorRequestDto;
+import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckService;
@@ -36,7 +36,7 @@ public class MedicalCheckController {
     @PostMapping("/doctor/{checkId}/start")
     @Operation(summary = "The beginning of the pre-trip examination by the doctor")
     public ResponseEntity<?> startExaminationForDoctor(@PathVariable Long checkId,
-                                                       @RequestBody @Valid DoctorRequestDto dto) {
+                                                       @RequestBody @Valid DoctorStartRequestDto dto) {
         medicalCheckService.startExaminationDoctor(checkId, dto);
         return ResponseEntity.ok().build();
     }
@@ -44,7 +44,7 @@ public class MedicalCheckController {
     @PostMapping("doctor/{checkId}/end")
     @Operation(summary = "Completion of the examination by the doctor")
     public ResponseEntity<?> endExaminationForDoctor(@PathVariable Long checkId,
-                                                     @RequestBody @Valid DoctorRequestDto dto) {
+                                                     @RequestBody @Valid DoctorStartRequestDto dto) {
         medicalCheckService.endExaminationDoctor(checkId, dto);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,6 @@
 package com.prmo.mock.domain.impl;
 
-import com.prmo.mock.controller.dto.doctor.DoctorRequestDto;
+import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckService;
@@ -73,7 +73,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public void startExaminationDoctor(Long checkId, DoctorRequestDto dto) {
+    public void startExaminationDoctor(Long checkId, DoctorStartRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
         if (medicalCheck.getDoctorId() != null) {
@@ -93,7 +93,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public void endExaminationDoctor(Long checkId, DoctorRequestDto dto) {
+    public void endExaminationDoctor(Long checkId, DoctorStartRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
         if (!medicalCheck.getDoctorId().equals(dto.getDoctorId())) {

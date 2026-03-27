@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 03-create-medical-check-data-table
+      author: lilheep
+      changes:
+        - createTable:
+            tableName: medical_check_data
+            schemaName: medical
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: medical_check_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: pulse
+                  type: int
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: systolic_pressure
+                  type: int
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: diastolic_pressure
+                  type: int
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: temperature
+                  type: real
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: alcohol_test_result
+                  type: real
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: complaints
+                  type: text
+
+              - column:
+                  name: admitted_to_drive
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: comment
+                  type: text
+
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_data_check
+            baseTableName: medical_check_data
+            baseTableSchemaName: medical
+            baseColumnNames: medical_check_id
+            referencedTableName: medical_check
+            referencedColumnNames: id
+            referencedTableSchemaName: medical
+            onDelete: cascade
