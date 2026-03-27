@@ -1,5 +1,7 @@
 package com.prmo.mock.domain;
 
+import com.prmo.mock.controller.dto.doctor.DoctorEndRequestDto;
+import com.prmo.mock.controller.dto.doctor.DoctorEndResponseDto;
 import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
@@ -17,6 +19,6 @@ public interface MedicalCheckService {
 
     void startExaminationDoctor(Long checkId, DoctorStartRequestDto dto);
 
-    void endExaminationDoctor(Long checkId, DoctorStartRequestDto dto);
+    DoctorEndResponseDto endExaminationDoctor(Long checkId, DoctorEndRequestDto dto);
 
 }

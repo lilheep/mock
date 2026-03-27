@@ -1,15 +1,20 @@
 package com.prmo.mock.domain.impl;
 
+import com.prmo.mock.controller.dto.doctor.DoctorEndRequestDto;
+import com.prmo.mock.controller.dto.doctor.DoctorEndResponseDto;
 import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
+import com.prmo.mock.domain.MedicalCheckDataService;
 import com.prmo.mock.domain.MedicalCheckService;
 import com.prmo.mock.domain.exception.resource.MedicalCheckNotFoundException;
 import com.prmo.mock.domain.exception.state.InvalidStateException;
 import com.prmo.mock.domain.exception.state.DoctorAlreadyAssignedException;
 import com.prmo.mock.domain.exception.state.DoctorAlreadyStartedException;
 import com.prmo.mock.domain.exception.forbidden.InvalidOwnershipException;
+import com.prmo.mock.domain.mappers.MedicalCheckMapper;
 import com.prmo.mock.infrastructure.entity.MedicalCheck;
+import com.prmo.mock.infrastructure.entity.MedicalCheckData;
 import com.prmo.mock.infrastructure.entity.MedicalCheckStatus;
 import com.prmo.mock.infrastructure.repository.MedicalCheckRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,18 +27,20 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MedicalCheckServiceImpl implements MedicalCheckService {
 
-    private final MedicalCheckRepository medicalCheckRepository;
+    private final MedicalCheckRepository repository;
+    private final MedicalCheckDataService medicalCheckDataService;
+    private final MedicalCheckMapper mapper;
 
     @Override
     @Transactional(readOnly = true)
     public MedicalCheck getById(Long id) {
-        return medicalCheckRepository.findById(id).orElseThrow(MedicalCheckNotFoundException::new);
+        return repository.findById(id).orElseThrow(MedicalCheckNotFoundException::new);
     }
 
     @Override
     @Transactional
     public void save(MedicalCheck medicalCheck) {
-        medicalCheckRepository.save(medicalCheck);
+        repository.save(medicalCheck);
     }
 
     @Override
@@ -93,7 +100,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public void endExaminationDoctor(Long checkId, DoctorStartRequestDto dto) {
+    public DoctorEndResponseDto endExaminationDoctor(Long checkId, DoctorEndRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
         if (!medicalCheck.getDoctorId().equals(dto.getDoctorId())) {
@@ -108,7 +115,20 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
             throw new InvalidStateException("Данный осмотр уже завершен");
         }
 
+        if (medicalCheck.getData() != null) {
+            throw new InvalidStateException("Данный осмотр уже завершен");
+        }
+
         medicalCheck.setDoctorEndTime(LocalDateTime.now());
         medicalCheck.setStatus(MedicalCheckStatus.COMPLETED);
+
+        MedicalCheckData data = medicalCheckDataService.create(medicalCheck, dto);
+        medicalCheck.setData(data);
+
+        save(medicalCheck);
+
+        DoctorEndResponseDto response = mapper.toDto(medicalCheck);
+        response.setCheckId(checkId);
+        return response;
     }
 }
