@@ -1,13 +1,6 @@
 package com.prmo.mock.infrastructure.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,5 +45,8 @@ public class MedicalCheck {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @OneToOne(mappedBy = "medicalCheck", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private MedicalCheckData data;
 
 }

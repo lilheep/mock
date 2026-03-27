@@ -1,8 +1,8 @@
 package com.prmo.mock.infrastructure.repository;
 
-import com.prmo.mock.infrastructure.entity.MedicalCheck;
+import com.prmo.mock.infrastructure.entity.MedicalCheckData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MedicalCheckRepository extends JpaRepository<MedicalCheck, Long> { }
+public interface MedicalCheckDataRepository extends JpaRepository<MedicalCheckData, Long> { }

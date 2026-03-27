@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
-@Schema(description = "Начало/завершение осмотра доктором")
+@Schema(description = "Начало осмотра доктором")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class DoctorRequestDto {
+public class DoctorStartRequestDto {
 
     @Schema(description = "ID доктора", example = "1")
     @NotNull(message = "Поле ID доктора не может быть пустым")
