@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
-@Schema(description = "Создание осмотра")
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Создание осмотра")
 @Getter
 @Setter
 public class DriverStartResponseDto {

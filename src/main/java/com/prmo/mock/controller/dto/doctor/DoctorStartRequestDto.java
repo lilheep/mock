@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
-@Schema(description = "Начало осмотра доктором")
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Начало осмотра доктором")
 @Getter
 @Setter
 public class DoctorStartRequestDto {

@@ -8,10 +8,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "medical_check")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "medical_check")
 @Getter
 @Setter
 public class MedicalCheck {

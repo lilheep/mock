@@ -1,4 +1,4 @@
-package com.prmo.mock.config;
+package com.prmo.mock.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

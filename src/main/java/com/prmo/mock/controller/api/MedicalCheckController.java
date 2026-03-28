@@ -13,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/v1/medical-check")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/medical-check")
+@RestController
 @Tag(name = "Medical Check Controller", description = "Medical Check API")
 public class MedicalCheckController {
 
