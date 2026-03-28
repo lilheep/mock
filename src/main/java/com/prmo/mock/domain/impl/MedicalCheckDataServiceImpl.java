@@ -8,6 +8,7 @@ import com.prmo.mock.infrastructure.entity.MedicalCheckData;
 import com.prmo.mock.infrastructure.repository.MedicalCheckDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class MedicalCheckDataServiceImpl implements MedicalCheckDataService {
     private final MedicalCheckDataMapper mapper;
 
     @Override
+    @Transactional
     public MedicalCheckData create(MedicalCheck medicalCheck, DoctorEndRequestDto dto) {
         MedicalCheckData medicalCheckData = mapper.toEntity(dto);
         medicalCheckData.setMedicalCheck(medicalCheck);
@@ -25,6 +27,7 @@ public class MedicalCheckDataServiceImpl implements MedicalCheckDataService {
     }
 
     @Override
+    @Transactional
     public void save(MedicalCheckData medicalCheckData) {
         repository.save(medicalCheckData);
     }
