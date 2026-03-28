@@ -7,10 +7,8 @@ import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckDataService;
 import com.prmo.mock.domain.MedicalCheckService;
+import com.prmo.mock.domain.validation.MedicalCheckValidationService;
 import com.prmo.mock.domain.exception.resource.MedicalCheckNotFoundException;
-import com.prmo.mock.domain.exception.state.InvalidStateException;
-import com.prmo.mock.domain.exception.state.DoctorAlreadyAssignedException;
-import com.prmo.mock.domain.exception.state.DoctorAlreadyStartedException;
 import com.prmo.mock.domain.exception.forbidden.InvalidOwnershipException;
 import com.prmo.mock.domain.mappers.MedicalCheckMapper;
 import com.prmo.mock.infrastructure.entity.MedicalCheck;
@@ -29,6 +27,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     private final MedicalCheckRepository repository;
     private final MedicalCheckDataService medicalCheckDataService;
+    private final MedicalCheckValidationService validationService;
     private final MedicalCheckMapper mapper;
 
     @Override
@@ -66,13 +65,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
             throw new InvalidOwnershipException();
         }
 
-        if (medicalCheck.getDriverEndTime() != null) {
-            throw new InvalidStateException("Данный осмотр уже закончен");
-        }
-
-        if (medicalCheck.getDriverStartTime() == null) {
-            throw new InvalidStateException("Данный осмотр еще не начат");
-        }
+        validationService.validationEndExaminationDriver(medicalCheck);
 
         medicalCheck.setDriverEndTime(LocalDateTime.now());
         save(medicalCheck);
@@ -83,13 +76,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
     public void startExaminationDoctor(Long checkId, DoctorStartRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
-        if (medicalCheck.getDoctorId() != null) {
-            throw new DoctorAlreadyAssignedException();
-        }
-
-        if (medicalCheck.getDriverEndTime() == null) {
-            throw new DoctorAlreadyStartedException();
-        }
+        validationService.validationStartExaminationDoctor(medicalCheck);
 
         medicalCheck.setDoctorId(dto.getDoctorId());
         medicalCheck.setDoctorStartTime(LocalDateTime.now());
@@ -107,17 +94,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
             throw new InvalidOwnershipException();
         }
 
-        if (medicalCheck.getDoctorStartTime() == null) {
-            throw new IllegalStateException("Данный осмотр еще не начат");
-        }
-
-        if (medicalCheck.getDoctorEndTime() != null) {
-            throw new InvalidStateException("Данный осмотр уже завершен");
-        }
-
-        if (medicalCheck.getData() != null) {
-            throw new InvalidStateException("Данный осмотр уже завершен");
-        }
+        validationService.validationEndExaminationDoctor(medicalCheck);
 
         medicalCheck.setDoctorEndTime(LocalDateTime.now());
         medicalCheck.setStatus(MedicalCheckStatus.COMPLETED);
