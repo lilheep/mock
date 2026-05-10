@@ -90,11 +90,11 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
     public DoctorEndResponseDto endExaminationDoctor(Long checkId, DoctorEndRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
+        validationService.validationEndExaminationDoctor(medicalCheck);
+
         if (!medicalCheck.getDoctorId().equals(dto.getDoctorId())) {
             throw new InvalidOwnershipException();
         }
-
-        validationService.validationEndExaminationDoctor(medicalCheck);
 
         medicalCheck.setDoctorEndTime(LocalDateTime.now());
         medicalCheck.setStatus(MedicalCheckStatus.COMPLETED);

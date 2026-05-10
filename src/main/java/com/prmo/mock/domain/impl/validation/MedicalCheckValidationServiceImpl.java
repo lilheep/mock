@@ -21,12 +21,16 @@ public class MedicalCheckValidationServiceImpl implements MedicalCheckValidation
 
     @Override
     public void validationStartExaminationDoctor(MedicalCheck medicalCheck) {
-        if (medicalCheck.getDriverEndTime() != null) {
-            throw new InvalidStateException("Данный осмотр уже закончен");
+        if (medicalCheck.getDoctorEndTime() != null) {
+            throw new InvalidStateException("Данный осмотр уже завершен");
         }
 
         if (medicalCheck.getDriverStartTime() == null) {
             throw new InvalidStateException("Данный осмотр еще не начат");
+        }
+
+        if (medicalCheck.getDriverEndTime() == null) {
+            throw new InvalidStateException("Водитель еще не завершил осмотр");
         }
     }
 
