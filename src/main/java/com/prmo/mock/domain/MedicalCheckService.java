@@ -3,8 +3,8 @@ package com.prmo.mock.domain;
 import com.prmo.mock.controller.dto.doctor.DoctorEndRequestDto;
 import com.prmo.mock.controller.dto.doctor.DoctorEndResponseDto;
 import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
-import com.prmo.mock.controller.dto.driver.DriverRequestDto;
-import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
+import com.prmo.mock.controller.dto.patient.PatientRequestDto;
+import com.prmo.mock.controller.dto.patient.PatientStartResponseDto;
 import com.prmo.mock.infrastructure.entity.MedicalCheck;
 
 public interface MedicalCheckService {
@@ -13,9 +13,9 @@ public interface MedicalCheckService {
 
     void save(MedicalCheck medicalCheck);
 
-    DriverStartResponseDto startExaminationDriver(DriverRequestDto dto);
+    PatientStartResponseDto startExaminationPatient(PatientRequestDto dto);
 
-    void endExaminationDriver(Long checkId, DriverRequestDto dto);
+    void endExaminationPatient(Long checkId, PatientRequestDto dto);
 
     void startExaminationDoctor(Long checkId, DoctorStartRequestDto dto);
 

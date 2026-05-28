@@ -56,7 +56,7 @@ databaseChangeLog:
                   type: text
 
               - column:
-                  name: admitted_to_drive
+                  name: result
                   type: boolean
                   constraints:
                     nullable: false

@@ -16,10 +16,10 @@ public class DoctorEndResponseDto {
     @Schema(description = "ID осмотра", example = "1")
     private Long checkId;
 
-    @Schema(description = "ID водителя", example = "1")
-    private Long driverId;
+    @Schema(description = "ID пациента", example = "1")
+    private Long patientId;
 
-    @Schema(description = "Допуск к вождению", example = "true")
-    private Boolean admittedToDrive;
+    @Schema(description = "Результат", example = "true")
+    private Boolean approved;
 
 }

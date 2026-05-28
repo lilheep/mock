@@ -20,17 +20,17 @@ public class MedicalCheck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "driver_id", nullable = false)
-    private Long driverId;
+    @Column(name = "patient_id", nullable = false)
+    private Long patientId;
 
     @Column(name = "doctor_id")
     private Long doctorId;
 
-    @Column(name = "driver_start_time", nullable = false)
-    private LocalDateTime driverStartTime;
+    @Column(name = "patient_start_time", nullable = false)
+    private LocalDateTime patientStartTime;
 
-    @Column(name = "driver_end_time")
-    private LocalDateTime driverEndTime;
+    @Column(name = "patient_end_time")
+    private LocalDateTime patientEndTime;
 
     @Column(name = "doctor_start_time")
     private LocalDateTime doctorStartTime;

@@ -3,8 +3,8 @@ package com.prmo.mock.domain.impl;
 import com.prmo.mock.controller.dto.doctor.DoctorEndRequestDto;
 import com.prmo.mock.controller.dto.doctor.DoctorEndResponseDto;
 import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
-import com.prmo.mock.controller.dto.driver.DriverRequestDto;
-import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
+import com.prmo.mock.controller.dto.patient.PatientRequestDto;
+import com.prmo.mock.controller.dto.patient.PatientStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckDataService;
 import com.prmo.mock.domain.MedicalCheckService;
 import com.prmo.mock.domain.exception.resource.ResourceNotFoundException;
@@ -41,24 +41,25 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     @Override
     @Transactional
-    public DriverStartResponseDto startExaminationDriver(DriverRequestDto dto) {
+    public PatientStartResponseDto startExaminationPatient(PatientRequestDto dto) {
         MedicalCheck medicalCheck = new MedicalCheck();
-        medicalCheck.setDriverId(dto.getDriverId());
-        medicalCheck.setDriverStartTime(LocalDateTime.now());
-        medicalCheck.setStatus(MedicalCheckStatus.PENDING);
+        medicalCheck.setPatientId(dto.getPatientId());
+        medicalCheck.setPatientStartTime(LocalDateTime.now());
+        medicalCheck.setStatus(MedicalCheckStatus.PATIENT_IN_PROGRESS);
         save(medicalCheck);
 
-        DriverStartResponseDto response = new DriverStartResponseDto();
+        PatientStartResponseDto response = new PatientStartResponseDto();
         response.setCheckId(medicalCheck.getId());
         return response;
     }
 
     @Override
     @Transactional
-    public void endExaminationDriver(Long checkId, DriverRequestDto dto) {
+    public void endExaminationPatient(Long checkId, PatientRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
-        medicalCheck.setDriverEndTime(LocalDateTime.now());
+        medicalCheck.setPatientEndTime(LocalDateTime.now());
+        medicalCheck.setStatus(MedicalCheckStatus.WAITING_DOCTOR);
         save(medicalCheck);
     }
 
@@ -69,7 +70,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
         medicalCheck.setDoctorId(dto.getDoctorId());
         medicalCheck.setDoctorStartTime(LocalDateTime.now());
-        medicalCheck.setStatus(MedicalCheckStatus.IN_PROGRESS);
+        medicalCheck.setStatus(MedicalCheckStatus.DOCTOR_IN_PROGRESS);
 
         save(medicalCheck);
     }

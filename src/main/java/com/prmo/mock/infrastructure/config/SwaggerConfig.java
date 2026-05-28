@@ -12,8 +12,8 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Pre-Trip Medical Check API")
-                        .description("API for pre-trip medical examinations of drivers and doctors")
+                        .title("Medical Check API")
+                        .description("API for medical examinations of patient and doctors")
                         .version("1.0"));
     }
 

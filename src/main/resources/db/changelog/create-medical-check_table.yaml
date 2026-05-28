@@ -15,7 +15,7 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: driver_id
+                  name: patient_id
                   type: bigint
                   constraints:
                     nullable: false
@@ -25,14 +25,14 @@ databaseChangeLog:
                   type: bigint
 
               - column:
-                  name: driver_start_time
+                  name: patient_start_time
                   type: timestamp
                   defaultValue: now()
                   constraints:
                     nullable: false
 
               - column:
-                  name: driver_end_time
+                  name: patient_end_time
                   type: timestamp
 
               - column:
