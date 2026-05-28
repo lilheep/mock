@@ -2,7 +2,6 @@ package com.prmo.mock.domain.mappers;
 
 import com.prmo.mock.controller.dto.doctor.DoctorEndRequestDto;
 import com.prmo.mock.domain.constants.MedicalCheckDataMapperFields;
-import com.prmo.mock.domain.constants.MedicalCheckMapperFields;
 import com.prmo.mock.infrastructure.entity.MedicalCheckData;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

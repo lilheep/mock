@@ -1,7 +1,6 @@
 package com.prmo.mock.controller.handlers;
 
 import com.prmo.mock.controller.dto.error.ErrorResponseDto;
-import com.prmo.mock.domain.exception.forbidden.ForbiddenException;
 import com.prmo.mock.domain.exception.resource.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +15,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponseDto(
                         HttpStatus.NOT_FOUND.value(),
-                        error.getMessage())
-                );
-    }
-
-    @ExceptionHandler(ForbiddenException.class)
-    public ResponseEntity<ErrorResponseDto> handleForbiddenException(ForbiddenException error) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(new ErrorResponseDto(
-                        HttpStatus.FORBIDDEN.value(),
-                        error.getMessage())
-                );
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<ErrorResponseDto> handleIllegalStateException(IllegalStateException error) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new ErrorResponseDto(
-                        HttpStatus.CONFLICT.value(),
                         error.getMessage())
                 );
     }

@@ -7,9 +7,7 @@ import com.prmo.mock.controller.dto.driver.DriverRequestDto;
 import com.prmo.mock.controller.dto.driver.DriverStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckDataService;
 import com.prmo.mock.domain.MedicalCheckService;
-import com.prmo.mock.domain.validation.MedicalCheckValidationService;
-import com.prmo.mock.domain.exception.resource.MedicalCheckNotFoundException;
-import com.prmo.mock.domain.exception.forbidden.InvalidOwnershipException;
+import com.prmo.mock.domain.exception.resource.ResourceNotFoundException;
 import com.prmo.mock.domain.mappers.MedicalCheckMapper;
 import com.prmo.mock.infrastructure.entity.MedicalCheck;
 import com.prmo.mock.infrastructure.entity.MedicalCheckData;
@@ -27,13 +25,12 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     private final MedicalCheckRepository repository;
     private final MedicalCheckDataService medicalCheckDataService;
-    private final MedicalCheckValidationService validationService;
     private final MedicalCheckMapper mapper;
 
     @Override
     @Transactional(readOnly = true)
     public MedicalCheck getById(Long id) {
-        return repository.findById(id).orElseThrow(MedicalCheckNotFoundException::new);
+        return repository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -61,12 +58,6 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
     public void endExaminationDriver(Long checkId, DriverRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
 
-        if (!dto.getDriverId().equals(medicalCheck.getDriverId())) {
-            throw new InvalidOwnershipException();
-        }
-
-        validationService.validationEndExaminationDriver(medicalCheck);
-
         medicalCheck.setDriverEndTime(LocalDateTime.now());
         save(medicalCheck);
     }
@@ -75,8 +66,6 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
     @Transactional
     public void startExaminationDoctor(Long checkId, DoctorStartRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
-
-        validationService.validationStartExaminationDoctor(medicalCheck);
 
         medicalCheck.setDoctorId(dto.getDoctorId());
         medicalCheck.setDoctorStartTime(LocalDateTime.now());
@@ -89,12 +78,6 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
     @Transactional
     public DoctorEndResponseDto endExaminationDoctor(Long checkId, DoctorEndRequestDto dto) {
         MedicalCheck medicalCheck = getById(checkId);
-
-        validationService.validationEndExaminationDoctor(medicalCheck);
-
-        if (!medicalCheck.getDoctorId().equals(dto.getDoctorId())) {
-            throw new InvalidOwnershipException();
-        }
 
         medicalCheck.setDoctorEndTime(LocalDateTime.now());
         medicalCheck.setStatus(MedicalCheckStatus.COMPLETED);
