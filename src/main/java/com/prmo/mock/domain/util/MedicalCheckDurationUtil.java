@@ -26,8 +26,8 @@ public class MedicalCheckDurationUtil {
         }
 
         return Duration.between(
-                medicalCheck.getPatientStartTime(),
-                medicalCheck.getDoctorEndTime()
+                medicalCheck.getPatientEndTime(),
+                medicalCheck.getDoctorStartTime()
         ).toMillis();
     }
 
@@ -37,7 +37,7 @@ public class MedicalCheckDurationUtil {
         }
 
         return Duration.between(
-                medicalCheck.getPatientStartTime(),
+                medicalCheck.getDoctorStartTime(),
                 medicalCheck.getDoctorEndTime()
         ).toMillis();
     }
