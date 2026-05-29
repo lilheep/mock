@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class MedicalCheckServiceImpl implements MedicalCheckService {
 
     private final MedicalCheckRepository repository;

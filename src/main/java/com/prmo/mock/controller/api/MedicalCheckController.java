@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/medical-check")
 @RestController
-@Tag(name = "Medical Check Controller", description = "Medical Check API")
+@Tag(name = "Medical Check Controller",
+     description = "Medical Check API")
 public class MedicalCheckController {
 
     private final MedicalCheckService medicalCheckService;

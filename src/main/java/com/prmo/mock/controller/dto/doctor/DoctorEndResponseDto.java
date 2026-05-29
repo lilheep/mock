@@ -20,6 +20,6 @@ public class DoctorEndResponseDto {
     private Long patientId;
 
     @Schema(description = "Результат", example = "true")
-    private Boolean approved;
+    private Boolean result;
 
 }

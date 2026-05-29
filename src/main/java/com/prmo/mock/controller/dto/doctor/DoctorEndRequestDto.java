@@ -41,9 +41,9 @@ public class DoctorEndRequestDto {
     @Schema(description = "Жалобы")
     private String complaints;
 
-    @Schema(description = "Допуск к вождению", example = "true")
-    @NotNull(message = "Поле допуск к вождению не может быть пустым")
-    private Boolean admittedToDrive;
+    @Schema(description = "Результат осмотра", example = "true")
+    @NotNull(message = "Поле результат осмотра не может быть пустым")
+    private Boolean result;
 
     @Schema(description = "Дополнительные комментарии")
     private String comment;

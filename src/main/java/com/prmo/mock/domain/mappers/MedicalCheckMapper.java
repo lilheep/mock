@@ -10,8 +10,8 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MedicalCheckMapper {
 
-    @Mapping(source = MedicalCheckMapperFields.DATA_APPROVED,
-             target = MedicalCheckMapperFields.APPROVED)
+    @Mapping(source = MedicalCheckMapperFields.DATA_RESULT,
+             target = MedicalCheckMapperFields.RESULT)
 
     DoctorEndResponseDto toDto(MedicalCheck medicalCheck);
 

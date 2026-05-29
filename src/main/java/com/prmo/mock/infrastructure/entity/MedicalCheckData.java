@@ -42,8 +42,8 @@ public class MedicalCheckData {
     @Column(name = "complaints", columnDefinition = "TEXT")
     private String complaints;
 
-    @Column(name = "approved", nullable = false)
-    private Boolean approved;
+    @Column(name = "result", nullable = false)
+    private Boolean result;
 
     @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
