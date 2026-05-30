@@ -33,6 +33,11 @@ management:
     web:
       exposure:
         include: health, prometheus, metrics
+
+  endpoint:
+    health:
+      show-details: always
+
   metrics:
     tags:
       application: medical-check-mock

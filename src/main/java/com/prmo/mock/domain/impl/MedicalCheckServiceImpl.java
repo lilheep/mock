@@ -6,6 +6,7 @@ import com.prmo.mock.controller.dto.doctor.DoctorStartRequestDto;
 import com.prmo.mock.controller.dto.patient.PatientRequestDto;
 import com.prmo.mock.controller.dto.patient.PatientStartResponseDto;
 import com.prmo.mock.domain.MedicalCheckDataService;
+import com.prmo.mock.domain.MedicalCheckMetricService;
 import com.prmo.mock.domain.MedicalCheckService;
 import com.prmo.mock.domain.exception.resource.ResourceNotFoundException;
 import com.prmo.mock.domain.mappers.MedicalCheckMapper;
@@ -26,6 +27,7 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
     private final MedicalCheckRepository repository;
     private final MedicalCheckDataService medicalCheckDataService;
     private final MedicalCheckMapper mapper;
+    private final MedicalCheckMetricService metricService;
 
     @Override
     @Transactional(readOnly = true)
@@ -85,6 +87,8 @@ public class MedicalCheckServiceImpl implements MedicalCheckService {
 
         MedicalCheckData data = medicalCheckDataService.create(medicalCheck, dto);
         medicalCheck.setData(data);
+
+        metricService.recordMedicalCheck(medicalCheck);
 
         save(medicalCheck);
 

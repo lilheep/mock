@@ -1,4 +1,4 @@
-package com.prmo.mock.domain.util;
+package com.prmo.mock.domain.metrics;
 
 import com.prmo.mock.infrastructure.entity.MedicalCheck;
 import org.springframework.stereotype.Component;

@@ -1,0 +1,6 @@
+Avg Patient Duration - medical_check_patient_duration_seconds_sum / medical_check_patient_duration_seconds_count
+Avg Doctor Duration - medical_check_doctor_duration_seconds_sum / medical_check_doctor_duration_seconds_count
+Avg Total Duration - medical_check_total_duration_seconds_sum / medical_check_total_duration_seconds_count
+Avg Doctor Waiting Time - medical_check_doctor_waiting_duration_seconds_sum / medical_check_doctor_waiting_duration_seconds_count
+Checks per Minute - rate(medical_check_total_duration_seconds_count[5m]) * 60
+Last Total Duration - max_over_time(medical_check_total_duration_seconds_max[5m])

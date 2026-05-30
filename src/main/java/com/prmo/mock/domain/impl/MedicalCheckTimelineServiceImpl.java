@@ -5,7 +5,7 @@ import com.prmo.mock.controller.dto.timeline.MedicalCheckTimelineEventResponseDt
 import com.prmo.mock.controller.dto.timeline.MedicalCheckTimelineResponseDto;
 import com.prmo.mock.domain.MedicalCheckService;
 import com.prmo.mock.domain.MedicalCheckTimelineService;
-import com.prmo.mock.domain.util.MedicalCheckDurationUtil;
+import com.prmo.mock.domain.metrics.MedicalCheckDurationUtil;
 import com.prmo.mock.infrastructure.entity.MedicalCheck;
 import com.prmo.mock.infrastructure.entity.MedicalCheckStatus;
 import lombok.RequiredArgsConstructor;
